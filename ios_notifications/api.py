@@ -96,10 +96,10 @@ class DeviceResource(BaseResource):
         except Device.DoesNotExist:
             return JSONResponse({'error': 'Device with token %s and service %s does not exist' %
                                 (kwargs['token'], kwargs['service__id'])}, status=400)
-
+        request.PUT = json.loads(request.body)
         if 'users' in request.PUT:
             try:
-                user_ids = request.PUT.getlist('users')
+                user_ids = request.PUT.get('users')
                 device.users.remove(*[u.id for u in device.users.all()])
                 device.users.add(*User.objects.filter(id__in=user_ids))
             except (ValueError, IntegrityError) as e:
