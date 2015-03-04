@@ -14,6 +14,8 @@ from .forms import DeviceForm
 from .decorators import api_authentication_required
 from .http import HttpResponseNotImplemented, JSONResponse
 
+import json
+
 
 class BaseResource(object):
     """
